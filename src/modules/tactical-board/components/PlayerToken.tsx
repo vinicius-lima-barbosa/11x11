@@ -1,10 +1,13 @@
 "use client";
 
-import { memo } from "react";
-import { Circle, Group, Text } from "react-konva";
 import type Konva from "konva";
-import type { BallToken, PlayerToken as PlayerTokenType } from "../types/tactical-board.types";
+import { memo } from "react";
+import { Circle, Group, RegularPolygon, Text } from "react-konva";
 import { useTacticalBoardStore } from "../store/tactical-board.store";
+import type {
+  BallToken,
+  PlayerToken as PlayerTokenType,
+} from "../types/tactical-board.types";
 
 type PlayerTokenProps = {
   token: PlayerTokenType | BallToken;
@@ -25,7 +28,9 @@ const TEAM_COLORS = {
 
 function PlayerTokenComponent({ token }: PlayerTokenProps) {
   const activeTool = useTacticalBoardStore((state) => state.activeTool);
-  const selectedElementId = useTacticalBoardStore((state) => state.selectedElementId);
+  const selectedElementId = useTacticalBoardStore(
+    (state) => state.selectedElementId,
+  );
   const selectElement = useTacticalBoardStore((state) => state.selectElement);
   const updateElement = useTacticalBoardStore((state) => state.updateElement);
   const removeElement = useTacticalBoardStore((state) => state.removeElement);
@@ -71,13 +76,47 @@ function PlayerTokenComponent({ token }: PlayerTokenProps) {
       >
         <Circle
           radius={radius}
-          fill="#f8fafc"
+          fillRadialGradientStartPoint={{ x: -radius * 0.3, y: -radius * 0.3 }}
+          fillRadialGradientStartRadius={0}
+          fillRadialGradientEndPoint={{ x: -radius * 0.3, y: -radius * 0.3 }}
+          fillRadialGradientEndRadius={radius * 1.4}
+          fillRadialGradientColorStops={[
+            0,
+            "#ffffff",
+            0.6,
+            "#f1f5f9",
+            1,
+            "#cbd5e1",
+          ]}
           stroke={isSelected ? "#facc15" : "#111827"}
           strokeWidth={isSelected ? 5 : 3}
           perfectDrawEnabled={false}
         />
-        <Circle x={-5} y={-4} radius={4} fill="#111827" />
-        <Circle x={6} y={4} radius={4} fill="#111827" />
+
+        <RegularPolygon
+          sides={5}
+          radius={radius * 0.36}
+          rotation={-90}
+          fill="#111827"
+          perfectDrawEnabled={false}
+        />
+
+        {[0, 72, 144, 216, 288].map((angle) => {
+          const rad = (angle * Math.PI) / 180;
+          const dist = radius * 0.62;
+          return (
+            <RegularPolygon
+              key={angle}
+              x={Math.cos(rad) * dist}
+              y={Math.sin(rad) * dist}
+              sides={5}
+              radius={radius * 0.22}
+              rotation={angle + 90}
+              fill="#111827"
+              perfectDrawEnabled={false}
+            />
+          );
+        })}
       </Group>
     );
   }
