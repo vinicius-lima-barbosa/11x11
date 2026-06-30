@@ -1,7 +1,9 @@
 "use client";
 
+import Logo11x11 from "@/../public/11x11-logo.png";
 import type Konva from "konva";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useRef, useSyncExternalStore } from "react";
 import { useBoardPersistence } from "../hooks/useBoardPersistence";
 import { useExportBoard } from "../hooks/useExportBoard";
@@ -76,12 +78,15 @@ function TacticalBoardClient() {
       <header className="border-b border-zinc-200 bg-white">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-4 py-4 lg:px-6">
           <div>
+            <Image
+              src={Logo11x11}
+              alt="Tactical Board Logo"
+              width={80}
+              height={80}
+            />
             <h1 className="text-lg font-semibold tracking-tight">
-              Tactical Board
+              Your Online Tactical Board
             </h1>
-            <p className="text-xs text-zinc-500">
-              Online football tactical board
-            </p>
           </div>
         </div>
       </header>

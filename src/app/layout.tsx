@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Tactical Board",
   description: "Online football tactical board.",
+  icons: {
+    icon: "/11x11-logo.png",
+  },
 };
 
 export default function RootLayout({
