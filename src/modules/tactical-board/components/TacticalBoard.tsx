@@ -39,8 +39,6 @@ function TacticalBoardClient() {
             <Image
               src={Logo11x11}
               alt="Tactical Board Logo"
-              width={80}
-              height={80}
               className="h-auto w-16 sm:w-20"
               loading="eager"
             />
