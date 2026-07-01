@@ -58,7 +58,10 @@ export function BoardStage({ stageRef }: BoardStageProps) {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="flex h-full min-h-[360px] w-full items-center justify-center overflow-hidden rounded-lg bg-zinc-950 p-3">
+    <div
+      ref={wrapperRef}
+      className="flex h-full min-h-[320px] w-full items-center justify-center overflow-hidden rounded-lg bg-zinc-950 p-1.5 sm:min-h-[420px] sm:p-3"
+    >
       <Stage
         ref={stageRef}
         width={BOARD_WIDTH * scale}
