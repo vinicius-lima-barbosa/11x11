@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/shared/components/Button";
+import { IconButton } from "@/shared/components/IconButton";
 import {
   Circle,
   Download,
@@ -12,8 +14,6 @@ import {
   Trash2,
   Undo2,
 } from "lucide-react";
-import { IconButton } from "@/shared/components/IconButton";
-import { Button } from "@/shared/components/Button";
 import { useTacticalBoardStore } from "../store/tactical-board.store";
 import type { Tool } from "../types/tactical-board.types";
 
@@ -54,8 +54,18 @@ export function Toolbar({ onExport }: ToolbarProps) {
       </div>
 
       <div className="flex items-center gap-1 border-r border-zinc-200 pr-2">
-        <IconButton label="Undo" icon={<Undo2 size={18} />} disabled={history.length === 0} onClick={undo} />
-        <IconButton label="Redo" icon={<Redo2 size={18} />} disabled={future.length === 0} onClick={redo} />
+        <IconButton
+          label="Undo"
+          icon={<Undo2 size={18} />}
+          disabled={history.length === 0}
+          onClick={undo}
+        />
+        <IconButton
+          label="Redo"
+          icon={<Redo2 size={18} />}
+          disabled={future.length === 0}
+          onClick={redo}
+        />
       </div>
 
       <div className="flex items-center gap-2">

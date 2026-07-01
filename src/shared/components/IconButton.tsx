@@ -23,10 +23,10 @@ export function IconButton({
       aria-label={label}
       title={label}
       className={cn(
-        "inline-flex size-9 shrink-0 items-center justify-center rounded-md border text-zinc-700 transition disabled:cursor-not-allowed disabled:opacity-45",
+        "inline-flex size-9 shrink-0 items-center justify-center rounded-md border text-white transition disabled:cursor-not-allowed disabled:opacity-45",
         isActive
-          ? "border-zinc-950 bg-zinc-950 text-white"
-          : "border-zinc-300 bg-white hover:bg-zinc-100",
+          ? "border-zinc-950 bg-zinc-950"
+          : "text-zinc-700 border-zinc-300 bg-white hover:bg-zinc-100",
         className,
       )}
       disabled={disabled}
