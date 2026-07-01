@@ -1,8 +1,13 @@
 import { nanoid } from "nanoid";
-import type { BallToken, BoardElement, PlayerToken, TeamSide } from "../types/tactical-board.types";
+import type {
+  BallToken,
+  BoardElement,
+  PlayerToken,
+  TeamSide,
+} from "../types/tactical-board.types";
 
-const HOME_COLOR_ORDER = [1, 2, 5, 4, 3, 6, 8, 10, 7, 9, 11];
-const AWAY_COLOR_ORDER = [1, 2, 5, 4, 3, 6, 8, 10, 7, 9, 11];
+const HOME_COLOR_ORDER = [1, 2, 3, 4, 6, 8, 5, 10, 7, 9, 11];
+const AWAY_COLOR_ORDER = [1, 2, 3, 4, 6, 8, 5, 10, 7, 9, 11];
 
 const homePositions = [
   [140, 390],
