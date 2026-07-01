@@ -36,7 +36,7 @@ function PlayerTokenComponent({ token }: PlayerTokenProps) {
   const removeElement = useTacticalBoardStore((state) => state.removeElement);
   const isSelected = selectedElementId === token.id;
   const isBall = token.type === "ball";
-  const radius = isBall ? 16 : 28;
+  const radius = isBall ? 12 : 20;
 
   function handleClick(event: Konva.KonvaEventObject<MouseEvent | TouchEvent>) {
     event.cancelBubble = true;
@@ -69,9 +69,6 @@ function PlayerTokenComponent({ token }: PlayerTokenProps) {
         x={token.x}
         y={token.y}
         draggable={activeTool === "select"}
-        listening={activeTool === "select" || activeTool === "eraser"}
-        onClick={handleClick}
-        onTap={handleClick}
         onDragEnd={handleDragEnd}
       >
         <Circle
@@ -89,7 +86,7 @@ function PlayerTokenComponent({ token }: PlayerTokenProps) {
             "#cbd5e1",
           ]}
           stroke={isSelected ? "#facc15" : "#111827"}
-          strokeWidth={isSelected ? 5 : 3}
+          strokeWidth={2}
           perfectDrawEnabled={false}
         />
 
@@ -138,7 +135,7 @@ function PlayerTokenComponent({ token }: PlayerTokenProps) {
         radius={radius}
         fill={colors.fill}
         stroke={isSelected ? "#facc15" : colors.stroke}
-        strokeWidth={isSelected ? 5 : 3}
+        strokeWidth={2}
         shadowColor="rgba(15,23,42,0.28)"
         shadowBlur={8}
         shadowOffsetY={3}
