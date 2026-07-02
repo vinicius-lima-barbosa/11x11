@@ -1,13 +1,19 @@
 "use client";
 
+import type Konva from "konva";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Layer, Stage } from "react-konva";
-import type Konva from "konva";
-import { BOARD_HEIGHT, BOARD_WIDTH, type BallToken, type DrawingShape as DrawingShapeType, type PlayerToken as PlayerTokenType } from "../types/tactical-board.types";
-import { useTacticalBoardStore } from "../store/tactical-board.store";
 import { useBoardPointerHandlers } from "../hooks/useBoardPointerHandlers";
-import { FootballPitch } from "./FootballPitch";
+import { useTacticalBoardStore } from "../store/tactical-board.store";
+import {
+  BOARD_HEIGHT,
+  BOARD_WIDTH,
+  type BallToken,
+  type DrawingShape as DrawingShapeType,
+  type PlayerToken as PlayerTokenType,
+} from "../types/tactical-board.types";
 import { DrawingShape } from "./DrawingShape";
+import { FootballPitch } from "./FootballPitch";
 import { PlayerToken } from "./PlayerToken";
 
 type BoardStageProps = {
@@ -19,12 +25,20 @@ function isDrawingShape(element: unknown): element is DrawingShapeType {
     typeof element === "object" &&
     element !== null &&
     "type" in element &&
-    (element.type === "line" || element.type === "arrow" || element.type === "rectangle" || element.type === "circle")
+    (element.type === "line" ||
+      element.type === "arrow" ||
+      element.type === "rectangle" ||
+      element.type === "circle")
   );
 }
 
 function isToken(element: unknown): element is PlayerTokenType | BallToken {
-  return typeof element === "object" && element !== null && "type" in element && (element.type === "player" || element.type === "ball");
+  return (
+    typeof element === "object" &&
+    element !== null &&
+    "type" in element &&
+    (element.type === "player" || element.type === "ball")
+  );
 }
 
 export function BoardStage({ stageRef }: BoardStageProps) {
@@ -34,8 +48,14 @@ export function BoardStage({ stageRef }: BoardStageProps) {
   const elements = useTacticalBoardStore((state) => state.elements);
   const drawings = useMemo(() => elements.filter(isDrawingShape), [elements]);
   const tokens = useMemo(() => elements.filter(isToken), [elements]);
-  const { previewShape, handlePointerDown, handlePointerMove, handlePointerUp } = useBoardPointerHandlers({ stageRef });
-  const shouldListenForElementEvents = activeTool === "select" || activeTool === "eraser";
+  const {
+    previewShape,
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp,
+  } = useBoardPointerHandlers({ stageRef });
+  const shouldListenForElementEvents =
+    activeTool === "select" || activeTool === "eraser";
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -79,7 +99,9 @@ export function BoardStage({ stageRef }: BoardStageProps) {
           {drawings.map((shape) => (
             <DrawingShape key={shape.id} shape={shape} />
           ))}
-          {previewShape ? <DrawingShape shape={previewShape} isPreview /> : null}
+          {previewShape ? (
+            <DrawingShape shape={previewShape} isPreview />
+          ) : null}
         </Layer>
         <Layer listening={shouldListenForElementEvents}>
           {tokens.map((token) => (

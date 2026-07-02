@@ -95,23 +95,6 @@ function FootballPitchComponent() {
         stroke={LINE_COLOR}
         strokeWidth={LINE_WIDTH}
       />
-
-      <Rect
-        x={0}
-        y={centerY - 64}
-        width={18}
-        height={128}
-        stroke={LINE_COLOR}
-        strokeWidth={LINE_WIDTH}
-      />
-      <Rect
-        x={BOARD_WIDTH - 18}
-        y={centerY - 64}
-        width={18}
-        height={128}
-        stroke={LINE_COLOR}
-        strokeWidth={LINE_WIDTH}
-      />
     </Group>
   );
 }
