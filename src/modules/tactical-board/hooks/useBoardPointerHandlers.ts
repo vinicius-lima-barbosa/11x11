@@ -1,17 +1,29 @@
 "use client";
 
+import type Konva from "konva";
 import { nanoid } from "nanoid";
 import { useCallback, useState } from "react";
-import type Konva from "konva";
-import type { BoardElement, DrawingShape, Point } from "../types/tactical-board.types";
 import { useTacticalBoardStore } from "../store/tactical-board.store";
-import { isMeaningfulShape, normalizeCircle, normalizeRectangle } from "../utils/geometry";
+import type {
+  BoardElement,
+  DrawingShape,
+  Point,
+} from "../types/tactical-board.types";
+import {
+  isMeaningfulShape,
+  normalizeCircle,
+  normalizeRectangle,
+} from "../utils/geometry";
 
-const DEFAULT_STROKE = "#f8fafc";
-const DEFAULT_STROKE_WIDTH = 5;
+const DEFAULT_STROKE = "#C91717";
+const DEFAULT_STROKE_WIDTH = 3;
 const TRANSPARENT_FILL = "rgba(255,255,255,0)";
 
-function createShape(tool: "line" | "arrow" | "rectangle" | "circle", start: Point, end: Point): DrawingShape {
+function createShape(
+  tool: "line" | "arrow" | "rectangle" | "circle",
+  start: Point,
+  end: Point,
+): DrawingShape {
   if (tool === "line" || tool === "arrow") {
     return {
       id: nanoid(),
@@ -47,7 +59,9 @@ type UseBoardPointerHandlersParams = {
   stageRef: React.RefObject<Konva.Stage | null>;
 };
 
-export function useBoardPointerHandlers({ stageRef }: UseBoardPointerHandlersParams) {
+export function useBoardPointerHandlers({
+  stageRef,
+}: UseBoardPointerHandlersParams) {
   const activeTool = useTacticalBoardStore((state) => state.activeTool);
   const addElement = useTacticalBoardStore((state) => state.addElement);
   const selectElement = useTacticalBoardStore((state) => state.selectElement);
