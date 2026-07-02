@@ -16,7 +16,7 @@ const ClientBoardStage = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-full min-h-[360px] items-center justify-center rounded-lg bg-zinc-950 text-sm text-zinc-300">
+      <div className="flex h-full min-h-[320px] items-center justify-center rounded-lg bg-[#157347] text-sm text-white sm:min-h-[420px]">
         Loading board...
       </div>
     ),
@@ -51,11 +51,11 @@ function TacticalBoardClient() {
 
       <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col gap-2 px-2 py-2 sm:gap-4 sm:px-4 sm:py-4 lg:px-6">
         <Toolbar onExport={exportBoard} />
-        <section className="min-h-[320px] flex-1 sm:min-h-[420px] lg:min-h-[calc(100vh-12rem)]">
+        <section className="w-full">
           {hasHydrated ? (
             <ClientBoardStage stageRef={stageRef} />
           ) : (
-            <div className="h-full min-h-[320px] rounded-lg bg-zinc-950 sm:min-h-[420px]" />
+            <div className="aspect-[1200/780] w-full rounded-lg bg-[#157347]" />
           )}
         </section>
       </main>

@@ -80,7 +80,7 @@ export function BoardStage({ stageRef }: BoardStageProps) {
   return (
     <div
       ref={wrapperRef}
-      className="flex h-full min-h-[320px] w-full items-center justify-center overflow-hidden rounded-lg bg-zinc-950 p-1.5 sm:min-h-[420px] sm:p-3"
+      className="flex h-full min-h-[320px] w-full items-center justify-center overflow-hidden rounded-lg bg-[#157347] sm:min-h-[420px]"
     >
       <Stage
         ref={stageRef}
