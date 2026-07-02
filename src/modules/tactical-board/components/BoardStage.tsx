@@ -15,6 +15,7 @@ import {
 import { DrawingShape } from "./DrawingShape";
 import { FootballPitch } from "./FootballPitch";
 import { PlayerToken } from "./PlayerToken";
+import { SelectionControls } from "./SelectionControls";
 
 type BoardStageProps = {
   stageRef: React.RefObject<Konva.Stage | null>;
@@ -107,6 +108,9 @@ export function BoardStage({ stageRef }: BoardStageProps) {
           {tokens.map((token) => (
             <PlayerToken key={token.id} token={token} />
           ))}
+        </Layer>
+        <Layer listening={activeTool === "select"}>
+          <SelectionControls stageRef={stageRef} />
         </Layer>
       </Stage>
     </div>

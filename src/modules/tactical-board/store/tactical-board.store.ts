@@ -26,6 +26,7 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
   elements: getDefaultElements(),
   history: [],
   future: [],
+  interactionSnapshot: null,
   hasHydrated: false,
 
   setActiveTool: (tool: Tool) => {
@@ -40,6 +41,7 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
       elements: [...state.elements, element],
       history: withHistory(state.elements, state.history),
       future: [],
+      interactionSnapshot: null,
       selectedElementId: element.id,
       activeTool: state.activeTool,
     }));
@@ -57,6 +59,35 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
         elements: nextElements,
         history: commit ? withHistory(state.elements, state.history) : state.history,
         future: commit ? [] : state.future,
+        interactionSnapshot: commit ? null : state.interactionSnapshot,
+      };
+    });
+  },
+
+  beginElementInteraction: () => {
+    set((state) => {
+      if (state.interactionSnapshot) {
+        return state;
+      }
+
+      return {
+        interactionSnapshot: cloneSnapshot(state.elements),
+      };
+    });
+  },
+
+  commitElementInteraction: () => {
+    set((state) => {
+      if (!state.interactionSnapshot) {
+        return state;
+      }
+
+      return {
+        history: [...state.history, state.interactionSnapshot].slice(
+          -MAX_HISTORY_ITEMS,
+        ),
+        future: [],
+        interactionSnapshot: null,
       };
     });
   },
@@ -66,6 +97,7 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
       elements: state.elements.filter((element) => element.id !== id),
       history: withHistory(state.elements, state.history),
       future: [],
+      interactionSnapshot: null,
       selectedElementId: state.selectedElementId === id ? null : state.selectedElementId,
     }));
   },
@@ -79,6 +111,7 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
       elements: getDefaultElements(),
       history: withHistory(state.elements, state.history),
       future: [],
+      interactionSnapshot: null,
       selectedElementId: null,
       activeTool: "select",
     }));
@@ -96,6 +129,7 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
         history: state.history.slice(0, -1),
         future: [cloneSnapshot(state.elements), ...state.future],
         selectedElementId: null,
+        interactionSnapshot: null,
       };
     });
   },
@@ -112,6 +146,7 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
         history: withHistory(state.elements, state.history),
         future: state.future.slice(1),
         selectedElementId: null,
+        interactionSnapshot: null,
       };
     });
   },
@@ -121,6 +156,7 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
       elements: getDefaultElements(),
       history: [],
       future: [],
+      interactionSnapshot: null,
       selectedElementId: null,
       hasHydrated: true,
     });
@@ -157,6 +193,7 @@ export const useTacticalBoardStore = create<TacticalBoardState>((set, get) => ({
         elements,
         history: [],
         future: [],
+        interactionSnapshot: null,
         selectedElementId: null,
         hasHydrated: true,
       });

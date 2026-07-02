@@ -77,10 +77,13 @@ export type TacticalBoardState = {
   elements: BoardElement[];
   history: BoardSnapshot[];
   future: BoardSnapshot[];
+  interactionSnapshot: BoardSnapshot | null;
   hasHydrated: boolean;
   setActiveTool: (tool: Tool) => void;
   addElement: (element: BoardElement) => void;
   updateElement: (id: string, patch: Partial<BoardElement>, options?: { commit?: boolean }) => void;
+  beginElementInteraction: () => void;
+  commitElementInteraction: () => void;
   removeElement: (id: string) => void;
   selectElement: (id: string | null) => void;
   clearBoard: () => void;
