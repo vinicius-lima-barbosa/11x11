@@ -1,25 +1,27 @@
 "use client";
 
+import type Konva from "konva";
 import { memo } from "react";
 import { Arrow, Ellipse, Line, Rect } from "react-konva";
-import type Konva from "konva";
-import type { DrawingShape as DrawingShapeType } from "../types/tactical-board.types";
 import { useTacticalBoardStore } from "../store/tactical-board.store";
+import type { DrawingShape as DrawingShapeType } from "../types/tactical-board.types";
 
 type DrawingShapeProps = {
   shape: DrawingShapeType;
   isPreview?: boolean;
 };
 
-function DrawingShapeComponent({ shape, isPreview = false }: DrawingShapeProps) {
+function DrawingShapeComponent({
+  shape,
+  isPreview = false,
+}: DrawingShapeProps) {
   const activeTool = useTacticalBoardStore((state) => state.activeTool);
-  const selectedElementId = useTacticalBoardStore((state) => state.selectedElementId);
   const selectElement = useTacticalBoardStore((state) => state.selectElement);
   const updateElement = useTacticalBoardStore((state) => state.updateElement);
   const removeElement = useTacticalBoardStore((state) => state.removeElement);
-  const isSelected = selectedElementId === shape.id;
-  const isInteractive = !isPreview && (activeTool === "select" || activeTool === "eraser");
-  const stroke = isSelected ? "#facc15" : shape.stroke;
+  const isInteractive =
+    !isPreview && (activeTool === "select" || activeTool === "eraser");
+  const stroke = shape.stroke;
 
   function handleClick(event: Konva.KonvaEventObject<MouseEvent | TouchEvent>) {
     if (isPreview) {
@@ -114,7 +116,9 @@ function DrawingShapeComponent({ shape, isPreview = false }: DrawingShapeProps) 
         opacity={isPreview ? 0.75 : 1}
         onClick={handleClick}
         onTap={handleClick}
-        onDragEnd={(event) => updateElement(shape.id, { x: event.target.x(), y: event.target.y() })}
+        onDragEnd={(event) =>
+          updateElement(shape.id, { x: event.target.x(), y: event.target.y() })
+        }
       />
     );
   }
@@ -135,7 +139,9 @@ function DrawingShapeComponent({ shape, isPreview = false }: DrawingShapeProps) 
       opacity={isPreview ? 0.75 : 1}
       onClick={handleClick}
       onTap={handleClick}
-      onDragEnd={(event) => updateElement(shape.id, { x: event.target.x(), y: event.target.y() })}
+      onDragEnd={(event) =>
+        updateElement(shape.id, { x: event.target.x(), y: event.target.y() })
+      }
     />
   );
 }
